@@ -12,10 +12,16 @@ export default function Tasks() {
                         type: "ADD",
                         task: { id: crypto.randomUUID(), title: "Test", done: false },
                     })
-                }
-            >
-                Add test task
+                }>Add test task
             </button>
+
+            { state.lastDeleted && (
+                <div>
+                    <span>Deleted "{state.lastDeleted.title}"</span>
+                    <button onClick={() => dispatch({ type: "UNDO" })}>Undo</button>
+                </div>
+            )} 
+
             {state.tasks.length === 0 ? <p>No tasks yet</p> : 
             (
                 <ul>
@@ -27,6 +33,10 @@ export default function Tasks() {
                             <span style={{ textDecoration: task.done ? "line-through" : "none" }}>
                                 {task.title}
                             </span>
+                            <button onClick={() => dispatch({ type: "DELETE", id: task.id })}>
+                                Delete
+                            </button>
+                            
                         </li>
                     ))}
                 </ul>

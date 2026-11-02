@@ -2,6 +2,9 @@ import { createContext, useReducer, useEffect, useContext } from "react";
 
 const TaskContext = createContext();
 
+const DEFAULT_STATE = { tasks: [], categories: [], lastDeleted: null };
+
+
 function reducer(state, action) {
     switch (action.type) {
         case "ADD":
@@ -14,7 +17,15 @@ function reducer(state, action) {
         case "DELETE":
             return {
                 ...state,
-                tasks: state.tasks.filter(t => t.id !== action.id)
+                tasks: state.tasks.filter(t => t.id !== action.id),
+                lastDeleted: state.tasks.find(t => t.id === action.id)
+            };
+        case "UNDO":
+            return !state.lastDeleted? state :
+            {
+                ...state,
+                tasks: [...state.tasks, state.lastDeleted],
+                lastDeleted: null
             };
         case "EDIT":
             return {
@@ -26,7 +37,6 @@ function reducer(state, action) {
     }
 }
 
-const DEFAULT_STATE = { tasks: [], categories: [] };
 
 function loadState() {
     try {
