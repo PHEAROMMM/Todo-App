@@ -1,3 +1,29 @@
+import { useTasks } from "../context/TaskContext";
+
 export default function Tasks() {
-    return <h1>Tasks</h1>;
+    const { state, dispatch } = useTasks();
+
+    return (
+        <>
+            <h1>Tasks ({state.tasks.length})</h1>
+            <button
+                onClick={() =>
+                    dispatch({
+                        type: "ADD",
+                        task: { id: crypto.randomUUID(), title: "Test", done: false },
+                    })
+                }
+            >
+                Add test task
+            </button>
+            {state.tasks.length === 0 ? <p>No tasks yet</p> : 
+            (
+                <ul>
+                    {state.tasks.map(task => (
+                        <li key={task.id}>{task.title}</li>
+                    ))}
+                </ul>
+            )}
+        </>
+    );
 }

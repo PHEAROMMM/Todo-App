@@ -1,9 +1,9 @@
 :root {
-  --emerald-depths: #005339;
-  --sand: #BDB573;
-  --jungle-teal: #658F73;
-  --ink-black: #0A1719;
-  --dark-coffee: #462B1B;
+    --emerald-depths: #005339;
+    --sand: #BDB573;
+    --jungle-teal: #658F73;
+    --ink-black: #0A1719;
+    --dark-coffee: #462B1B;
 }
 
 * { box-sizing: border-box; }
