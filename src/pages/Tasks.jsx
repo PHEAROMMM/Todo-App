@@ -20,7 +20,14 @@ export default function Tasks() {
             (
                 <ul>
                     {state.tasks.map(task => (
-                        <li key={task.id}>{task.title}</li>
+                        <li key={task.id}>
+                            <input type="checkbox"
+                            checked={task.done}
+                            onChange={() => dispatch({type: "TOGGLE", id: task.id })} />
+                            <span style={{ textDecoration: task.done ? "line-through" : "none" }}>
+                                {task.title}
+                            </span>
+                        </li>
                     ))}
                 </ul>
             )}
